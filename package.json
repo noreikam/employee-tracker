@@ -4,23 +4,22 @@
     "description": "",
     "main": "server.js",
     "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1",
-      "start": "node server.js"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
     },
     "repository": {
-      "type": "git",
-      "url": "git+https://github.com/noreikam/employee-tracker.git"
+        "type": "git",
+        "url": "git+https://github.com/noreikam/employee-tracker.git"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "bugs": {
-      "url": "https://github.com/noreikam/employee-tracker/issues"
+        "url": "https://github.com/noreikam/employee-tracker/issues"
     },
     "homepage": "https://github.com/noreikam/employee-tracker#readme",
     "dependencies": {
-      "mysql2": "^2.3.3",
-      "inquirer": "^6.3.1"
+        "inquirer": "^7.3.3",
+        "mysql2": "^2.3.3"
     }
-  }
-  
+}
