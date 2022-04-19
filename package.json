@@ -19,7 +19,7 @@
     },
     "homepage": "https://github.com/noreikam/employee-tracker#readme",
     "dependencies": {
-        "inquirer": "^7.3.3",
+        "inquirer": "^7.0.0",
         "mysql2": "^2.3.3"
     }
 }

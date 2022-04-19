@@ -61,8 +61,9 @@ const displayAction = (action) => {
     }
 }
 
-function promptUser() {
-    inquirer.prompt([
+const promptUser = () => {
+    console.log("Before inquirer.prompt");
+    const answers = inquirer.prompt([
         {
             type: 'list',
             name: 'action',
@@ -71,9 +72,10 @@ function promptUser() {
         }
     ])
     .then((answers) => {
-        console.log(JSON.stringify(answers, null, ' '));
-        displayAction(answers);
+        console.log(answers.action);
+        // displayAction(answers);
     }) 
+    console.log("after 77");
 }
 
 promptUser();
