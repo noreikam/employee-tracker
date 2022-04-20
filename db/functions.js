@@ -1,4 +1,4 @@
-// const db = require('../db/connection');
+const db = require('../db/connection');
 const mysql = require('mysql2');
 
 const getDepts = () => {
@@ -47,7 +47,7 @@ const functions = {getDepts, getRoles, getEmployees, addDept, addRole, addEmploy
 
 module.exports = functions;
 
-// db.connect(function (err) {
-//     console.log(err);
-//     // if (err) throw err;
-//   });
+db.connect(function (err) {
+    console.log(err);
+    // if (err) throw err;
+  });
