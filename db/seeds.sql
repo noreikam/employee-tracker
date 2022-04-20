@@ -1,4 +1,6 @@
-INSERT INTO departments (dept_name) 
+const seeds = () => {
+return
+`INSERT INTO departments (dept_name) 
 VALUES
     ('Executive'),
     ('Development'),
@@ -28,7 +30,9 @@ VALUES
     ('Wanda', 'Wallace', '7', '4'),
     ('Christian', 'Johnson', '8', '4'),
     ('Stewart', 'Big', '6', '3'),
-    ('Camila', 'Suarez', '5', '2');
+    ('Camila', 'Suarez', '5', '2');`}
+
+module.exports = seeds;
 
 
 

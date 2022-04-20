@@ -1,3 +1,7 @@
-DROP DATABASE IF EXISTS employee_tracker;
+const db = () => {
+return
+`DROP DATABASE IF EXISTS employee_tracker;
 CREATE DATABASE employee_tracker;
-USE employee_tracker;
+USE employee_tracker;`;
+}
+module.exports = db;

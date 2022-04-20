@@ -1,4 +1,7 @@
 const db = require('../db/connection');
+const employee_tracker = require('../db/db.sql');
+const schema = require('../db/schema.sql');
+const seeds = require('../db/seeds.sql');
 const mysql = require('mysql2');
 
 const getDepts = () => {
@@ -47,7 +50,15 @@ const functions = {getDepts, getRoles, getEmployees, addDept, addRole, addEmploy
 
 module.exports = functions;
 
+const init = () => {
+    mysql.source(db);
+    mysql.source(schema);
+    mysql.source(seeds);
+}
+
 db.connect(function (err) {
     console.log(err);
     // if (err) throw err;
   });
+
+init();
