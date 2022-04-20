@@ -1,50 +1,115 @@
 const inquirer = require('inquirer');
-const db = require('./db/connection');
+const functions = require('./db/functions');
 
 const viewDepartments = () => {
-    // sql goes here
-    // console.table(`SELECT * FROM departments`);
+    console.log("View Departments function called");
+    console.log(functions.getDepts());
 }
 
 const viewRoles = () => {
-    // sql goes here
-    // console.table(`SELECT * FROM roles`);
+    console.log("View Roles function called");
+    console.log(functions.getRoles());
 }
 
 const viewEmployees = () => {
-    // sql goes here
-    // console.table(`SELECT * FROM employees`);
+    console.log("View Employees function called");
+    console.log(functions.getEmployees());
 }
 
 const addDepartment = () => {
-    // more prompts
-    // sql goes here
-    // INSERT INTO departments (dept_name) VALUES (department.dept_name);
-    // console.log('New department added');
-    // console.log(`SELECT * FROM departments WHERE dept_id = department.dept_id`)
+    console.log("Add Department function called");
+
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'Enter department name: '
+        }
+    ])
+    .then((answers) => {
+        console.log(functions.addDept(answers.name));
+    })
 }
 
 const addRole = () => {
-    // more prompts
-    // sql goes here
+    console.log("Add Role function called");
+
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'title',
+            message: 'Enter role title: '
+        }, 
+        {
+            type: 'input',
+            name: 'salary',
+            message: 'Enter role salary: '
+        }, 
+        {
+            type: 'input',
+            name: 'department_id',
+            message: 'Enter role department: '
+        }
+    ])
+    .then((answers) => {
+        console.log(functions.addRole(answers.title, answers.salary, answers.department_id));
+    })
 }
 
 const addEmployee = () => {
-    // more prompts
-    // sql goes here
-    // INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (employee.first_name, employee.last_name, employee.role_id, employee.manager_id);
-    // console.log('New employee added');
-    // console.log(`SELECT * FROM employees WHERE empl_id = employee.empl_id`)
+
+    console.log("Add Role function called");
+
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'first_name',
+            message: 'Enter first name: '
+        }, 
+        {
+            type: 'input',
+            name: 'last_name',
+            message: 'Enter last name: '
+        }, 
+        {
+            type: 'input',
+            name: 'role_id',
+            message: 'Enter role ID: '
+        }, 
+        {
+            type: 'input',
+            name: 'manager_id',
+            message: 'Enter manager ID: '
+        }
+    ])
+    .then((answers) => {
+        console.log(functions.addEmployee(answers.first_name, answers.last_name, answers.role_id, answers.manager_id));
+    })
 }
 
 const updateEmployee = () => {
-    // more prompts
-    // sql goes here
+    console.log("Update employee function called");
+
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'employee_id',
+            message: "Enter employee's ID"
+        }, 
+        {
+            type: 'input',
+            name: 'new_role',
+            message: 'Enter new role ID: '
+        }
+    ])
+    .then((answers) => {
+        console.log(functions.updateEmployee(answers.employee_id, answers.new_role));
+    })
 }
 
-const displayAction = (action) => {
-    console.log(`You have selected ${action}`);
-    switch(action) {
+const displayAction = (answers) => {
+    console.log(`You have selected ${answers.action}`);
+    switch(answers.action) {
         case 'View Departments': viewDepartments();
             break;
         case 'View Roles': viewRoles();
@@ -62,8 +127,7 @@ const displayAction = (action) => {
 }
 
 const promptUser = () => {
-    console.log("Before inquirer.prompt");
-    const answers = inquirer.prompt([
+    inquirer.prompt([
         {
             type: 'list',
             name: 'action',
@@ -72,10 +136,8 @@ const promptUser = () => {
         }
     ])
     .then((answers) => {
-        console.log(answers.action);
-        // displayAction(answers);
-    }) 
-    console.log("after 77");
+        displayAction(answers);
+    })
 }
 
 promptUser();
