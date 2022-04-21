@@ -52,10 +52,10 @@ const addDept = (name) => {
     executeQuery(sql, obj);
 }
 
-const addRole = (title, salary, deptartment_id) => {
+const addRole = (title, salary, dept_id) => {
     const sql = `INSERT INTO roles 
-                (title, salary, department_id) 
-                VALUES ('${title}', '${salary}', '${deptartment_id}');`
+                (title, salary, dept_id) 
+                VALUES ('${title}', '${salary}', '${dept_id}');`
     const obj = {op: 'CREATE',
                 table: 'roles'};
     executeQuery(sql, obj);
