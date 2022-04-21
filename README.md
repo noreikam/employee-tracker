@@ -16,7 +16,7 @@ Clone repo from https://github.com/noreikam/employee-tracker/tree/main.  Run com
 
 
 ## Usage<a id='usage'></a>
-Run 'node index.js' to initiate the inquirer prompts.  Choose the desired action and follow the prompts.  Once all prompts are answered, the results will be displayed in the terminal.
+To create the database, open the mysql shell with 'mysql -u root -p'.  On separate lines, use 'source db/db.sql', 'source db/schema.sql', 'source db/seeds.sql'.  This will create and use the database, create the tables, and seed the tables with initial values.  Next, run 'node index.js' to initiate the inquirer prompts.  Choose the desired action and follow the prompts.  Once all prompts are answered, the results will be displayed in the terminal.
 
 
 
