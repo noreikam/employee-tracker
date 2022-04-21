@@ -18,6 +18,8 @@ const viewEmployees = () => {
 
 const addDepartment = () => {
     console.log("Add Department function called");
+    const dbQuery = 'SELECT DATABASE();'
+    console.log(dbQuery);
 
     inquirer.prompt([
         {
