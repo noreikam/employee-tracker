@@ -2,25 +2,19 @@ const inquirer = require('inquirer');
 const functions = require('./db/functions');
 
 const viewDepartments = () => {
-    console.log("View Departments function called");
-    console.log(functions.getDepts());
+    functions.getDepts();
+    return;
 }
 
 const viewRoles = () => {
-    console.log("View Roles function called");
-    console.log(functions.getRoles());
+    functions.getRoles();
 }
 
 const viewEmployees = () => {
-    console.log("View Employees function called");
-    console.log(functions.getEmployees());
+    functions.getEmployees();
 }
 
 const addDepartment = () => {
-    console.log("Add Department function called");
-    const dbQuery = 'SELECT DATABASE();'
-    console.log(dbQuery);
-
     inquirer.prompt([
         {
             type: 'input',
@@ -29,13 +23,11 @@ const addDepartment = () => {
         }
     ])
     .then((answers) => {
-        console.log(functions.addDept(answers.name));
+        functions.addDept(answers.name);
     })
 }
 
 const addRole = () => {
-    console.log("Add Role function called");
-
     inquirer.prompt([
         {
             type: 'input',
@@ -54,14 +46,11 @@ const addRole = () => {
         }
     ])
     .then((answers) => {
-        console.log(functions.addRole(answers.title, answers.salary, answers.department_id));
+        functions.addRole(answers.title, answers.salary, answers.department_id);
     })
 }
 
 const addEmployee = () => {
-
-    console.log("Add Role function called");
-
     inquirer.prompt([
         {
             type: 'input',
@@ -85,13 +74,11 @@ const addEmployee = () => {
         }
     ])
     .then((answers) => {
-        console.log(functions.addEmployee(answers.first_name, answers.last_name, answers.role_id, answers.manager_id));
+        functions.addEmployee(answers.first_name, answers.last_name, answers.role_id, answers.manager_id);
     })
 }
 
 const updateEmployee = () => {
-    console.log("Update employee function called");
-
     inquirer.prompt([
         {
             type: 'input',
@@ -105,12 +92,11 @@ const updateEmployee = () => {
         }
     ])
     .then((answers) => {
-        console.log(functions.updateEmployee(answers.employee_id, answers.new_role));
+        functions.updateEmployee(answers.employee_id, answers.new_role);
     })
 }
 
-const displayAction = (answers) => {
-    console.log(`You have selected ${answers.action}`);
+const filterActions = (answers) => {
     switch(answers.action) {
         case 'View Departments': viewDepartments();
             break;
@@ -138,7 +124,7 @@ const promptUser = () => {
         }
     ])
     .then((answers) => {
-        displayAction(answers);
+        filterActions(answers);
     })
 }
 

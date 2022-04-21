@@ -6,9 +6,11 @@ VALUES
     ('Production Support'),
     ('Interns');
 
-INSERT INTO roles (title, salary, department_id) 
+INSERT INTO roles (title, salary, dept_id) 
 VALUES 
     ('CEO', '250000', '1'),
+    ('CFO', '200000', '1'),
+    ('CTO', '200000', '1'),
     ('Dev Manager', '125000', '2'),
     ('Testing Manager', '125000', '3'),
     ('Production Manager', '125000', '4'),
@@ -17,18 +19,21 @@ VALUES
     ('Production Analyst', '100000', '4'),
     ('Production Intern', '30000', '4');
 
+
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
 VALUES 
-    ('Matt', 'Noreika', '1', null),
-    ('Justin', 'Smith', '2', '1'),
-    ('Alyssa', 'Root', '3', '1'),
-    ('Ivan', 'Ivanov', '4', '1'),
-    ('Bart', 'Lawrence', '5', '2'),
-    ('Tammy', 'Thompson', '6', '3'),
-    ('Wanda', 'Wallace', '7', '4'),
-    ('Christian', 'Johnson', '8', '4'),
-    ('Stewart', 'Big', '6', '3'),
-    ('Camila', 'Suarez', '5', '2');
+    ('Matt', 'Noreika', '1', '1'),
+    ('Clinton', 'Tarzia', '2', '1'),
+    ('Vaughn', 'Smith', '3', '1'),
+    ('Justin', 'Smith', '4', '1'),
+    ('Alyssa', 'Root', '5', '1'),
+    ('Ivan', 'Ivanov', '6', '1'),
+    ('Bart', 'Lawrence', '7', '2'),
+    ('Tammy', 'Thompson', '8', '3'),
+    ('Wanda', 'Wallace', '9', '4'),
+    ('Christian', 'Johnson', '10', '4'),
+    ('Stewart', 'Big', '8', '3'),
+    ('Camila', 'Suarez', '7', '2');
 
 
 
