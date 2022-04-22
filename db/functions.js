@@ -4,17 +4,30 @@ const executeQuery = (sql, obj) => {
     db.query(sql, 
         function(err, results) {
             if(err) {throw err;}
-            console.table(results);
-            console.log(`Success!  ${obj.op} executed on ${obj.table}`);
+            if(obj.op === 'READ') {
+                console.table(results);
+            }
+            if(obj.op === 'READ(sum)') {
+                const budget = JSON.stringify(results).substr(19).replace('"}]', '');
+                console.log('Department Budget: $' + budget);
+            }
             if(obj.op === 'CREATE') {
-                console.log(`Inserted new row with id = ${results.insertId}`)
+                console.log(`Inserted new row with id = ${results.insertId} into ${obj.table}`)
             }
             if(obj.op === 'UPDATE') {
-                console.log(`Updated row with id = ${obj.id}`)
+                console.log(`Updated row with id = ${obj.id} in ${obj.table}`)
             }
-        });
+            if(obj.op === 'DELETE') {
+                console.log(results);
+                if(results.affectedRows === 1) {
+                    console.log(`Deleted row with id = ${obj.id} from ${obj.table}`);
+                } else {
+                    console.log('No employee record exists for the input ID');
+                }
+            }
+        }
+    );
 }
-
 
 const getDepts = () => {
     const sql = `SELECT * FROM departments;`;
@@ -33,13 +46,47 @@ const getRoles = () => {
     executeQuery(sql, obj);
 }
 
-const getEmployees = () => {
-    const sql = `SELECT e.empl_id, e.first_name, e.last_name, e.role_id, r.title, r.salary, r.dept_id, d.dept_name
+const getAllEmpl = () => {
+    const sql = `SELECT e.empl_id, e.first_name, e.last_name, r.title, r.salary, d.dept_name
                 FROM ((employees AS e 
                 INNER JOIN roles AS r ON e.role_id = r.role_id)
                 INNER JOIN departments AS d ON r.dept_id = d.dept_id)
                 ORDER BY e.empl_id;`;
     const obj = {op: 'READ',
+                table: 'employees'};
+    executeQuery(sql, obj);
+}
+
+const emplByMgr = (mgr_id) => {
+    const sql = `SELECT e.empl_id, e.first_name, e.last_name, r.title, r.salary, d.dept_name
+                FROM ((employees AS e 
+                INNER JOIN roles AS r ON e.role_id = r.role_id)
+                INNER JOIN departments AS d ON r.dept_id = d.dept_id)
+                WHERE e.manager_id = ${mgr_id}
+                ORDER BY e.empl_id;`;
+    const obj = {op: 'READ',
+                table: 'employees'};
+    executeQuery(sql, obj);
+}
+
+const emplByDept = (dept_id) => {
+    const sql = `SELECT e.empl_id, e.first_name, e.last_name, r.title, r.salary, d.dept_name
+                FROM ((employees AS e 
+                INNER JOIN roles AS r ON e.role_id = r.role_id)
+                INNER JOIN departments AS d ON r.dept_id = d.dept_id)
+                WHERE r.dept_id = ${dept_id}
+                ORDER BY e.empl_id;`;
+    const obj = {op: 'READ',
+                table: 'employees'};
+    executeQuery(sql, obj);
+}
+
+const deptBudget = (dept_id) => {
+    const sql = `SELECT SUM(r.salary)
+    FROM (roles AS r
+    INNER JOIN employees AS e ON e.role_id = r.role_id)
+    WHERE r.dept_id = ${dept_id};`;
+    const obj = {op: 'READ(sum)', 
                 table: 'employees'};
     executeQuery(sql, obj);
 }
@@ -69,7 +116,7 @@ const addEmployee = (first_name, last_name, role_id, manager_id) => {
     executeQuery(sql, obj);
 }
 
-const updateEmployee = (employee_id, new_role) => {
+const updateEmplRole = (employee_id, new_role) => {
     const sql = `UPDATE employees
                 SET role_id = '${new_role}'
                 WHERE empl_id = '${employee_id}';`;
@@ -79,8 +126,27 @@ const updateEmployee = (employee_id, new_role) => {
     executeQuery(sql, obj);
 }
 
+const updateEmplMgr = (employee_id, new_mgr) => {
+    const sql = `UPDATE employees
+                SET manager_id = '${new_mgr}'
+                WHERE empl_id = '${employee_id}';`;
+    const obj = {op: 'UPDATE',
+                table: 'employees',
+                id: employee_id};
+    executeQuery(sql, obj);
+}
 
-const functions = {getDepts, getRoles, getEmployees, addDept, addRole, addEmployee, updateEmployee};
+const deleteEmpl = (employee_id) => {
+    const sql = `DELETE FROM employees 
+                WHERE empl_id = '${employee_id}';`;
+    const obj = {op: 'DELETE',
+                table: 'employees',
+                id: employee_id};
+    executeQuery(sql, obj);
+}
+
+
+const functions = {getDepts, getRoles, getAllEmpl, emplByMgr, emplByDept, deptBudget, addDept, addRole, addEmployee, updateEmplRole, updateEmplMgr, deleteEmpl};
 
 module.exports = functions;
 
