@@ -18,7 +18,6 @@ const executeQuery = (sql, obj) => {
                 console.log(`Updated row with id = ${obj.id} in ${obj.table}`)
             }
             if(obj.op === 'DELETE') {
-                console.log(results);
                 if(results.affectedRows === 1) {
                     console.log(`Deleted row with id = ${obj.id} from ${obj.table}`);
                 } else {
